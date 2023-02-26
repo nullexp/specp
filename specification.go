@@ -1,4 +1,4 @@
-package specification
+package specp
 
 type Satisfier[T any] interface {
 	IsSatisfiedBy(value T) bool
