@@ -74,6 +74,24 @@ func TestAccpetedForIntreview(t *testing.T) {
 			},
 			wantAccepted: false,
 		},
+		{
+			name: "Shoud have required skills",
+			application: func() (out ApplicationRequest) {
+				out = validSample
+				out.Skills = []Skill{}
+				return
+			},
+			wantAccepted: false,
+		},
+		{
+			name: "Shoud have atleast 4 years relevant experience",
+			application: func() (out ApplicationRequest) {
+				out = validSample
+				out.RelevantExperience = 3
+				return
+			},
+			wantAccepted: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
