@@ -67,3 +67,36 @@ func AccpetedForIntreview(application ApplicationRequest) (accepted bool) {
 
 	return true
 }
+
+type OlderThanSpec[T ApplicationRequest] struct {
+	CompositeSpecification[ApplicationRequest]
+	age int
+}
+
+func (o OlderThanSpec[T]) IsSatisfiedBy(u ApplicationRequest) bool {
+	return u.Age > o.age
+}
+
+func OlderThan(age int) OlderThanSpec[ApplicationRequest] {
+	spec := OlderThanSpec[ApplicationRequest]{age: age}
+	spec.value = NewCompositeSpecification[ApplicationRequest](spec)
+	return spec
+}
+
+type YoungerThan[T ApplicationRequest] struct {
+	CompositeSpecification[ApplicationRequest]
+	age int
+}
+
+func (o YoungerThan[T]) IsSatisfiedBy(u ApplicationRequest) bool {
+	return u.Age < o.age
+}
+
+type NameNotEmpty[T ApplicationRequest] struct {
+	CompositeSpecification[ApplicationRequest]
+	age int
+}
+
+func (o NameNotEmpty[T]) IsSatisfiedBy(u ApplicationRequest) bool {
+	return u.Age < o.age
+}
