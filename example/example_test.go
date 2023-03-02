@@ -1,4 +1,4 @@
-package specp
+package example
 
 import (
 	"testing"

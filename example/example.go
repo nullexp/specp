@@ -1,8 +1,10 @@
-package specp
+package example
 
 import (
 	"strings"
 	"time"
+
+	"github.com/nullexp/specp"
 )
 
 type Skill string
@@ -69,7 +71,7 @@ func AccpetedForIntreview(application ApplicationRequest) (accepted bool) {
 }
 
 type OlderThanSpec[T ApplicationRequest] struct {
-	CompositeSpecification[ApplicationRequest]
+	specp.CompositeSpecification[ApplicationRequest]
 	age int
 }
 
@@ -79,12 +81,12 @@ func (o OlderThanSpec[T]) IsSatisfiedBy(u ApplicationRequest) bool {
 
 func OlderThan(age int) OlderThanSpec[ApplicationRequest] {
 	spec := OlderThanSpec[ApplicationRequest]{age: age}
-	spec.value = NewCompositeSpecification[ApplicationRequest](spec)
+	spec.value = specp.NewCompositeSpecification[ApplicationRequest](spec)
 	return spec
 }
 
 type YoungerThan[T ApplicationRequest] struct {
-	CompositeSpecification[ApplicationRequest]
+	specp.CompositeSpecification[ApplicationRequest]
 	age int
 }
 
@@ -93,7 +95,7 @@ func (o YoungerThan[T]) IsSatisfiedBy(u ApplicationRequest) bool {
 }
 
 type NameNotEmpty[T ApplicationRequest] struct {
-	CompositeSpecification[ApplicationRequest]
+	specp.CompositeSpecification[ApplicationRequest]
 	age int
 }
 
