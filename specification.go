@@ -14,14 +14,14 @@ type Specification[T any] interface {
 }
 
 type CompositeSpecification[T any] struct {
-	value Satisfier[T]
+	Value Satisfier[T]
 }
 
 func NewCompositeSpecification[T any](satisfier Satisfier[T]) CompositeSpecification[T] {
-	return CompositeSpecification[T]{value: satisfier}
+	return CompositeSpecification[T]{Value: satisfier}
 }
 func (c CompositeSpecification[T]) IsSatisfiedBy(value T) bool {
-	return c.value.IsSatisfiedBy(value)
+	return c.Value.IsSatisfiedBy(value)
 }
 
 func (c CompositeSpecification[T]) And(other Specification[T]) Specification[T] {
@@ -80,7 +80,7 @@ func (ns NotSpecficiation[T]) IsSatisfiedBy(value T) bool {
 	return !(ns.condition.IsSatisfiedBy(value))
 }
 func NewNotSpecification[T any](condition Specification[T]) NotSpecficiation[T] {
-	return NotSpecficiation[T]{condition: condition, CompositeSpecification: CompositeSpecification[T]{value: condition}}
+	return NotSpecficiation[T]{condition: condition, CompositeSpecification: CompositeSpecification[T]{Value: condition}}
 }
 
 type OrNotSpecficiation[T any] struct {

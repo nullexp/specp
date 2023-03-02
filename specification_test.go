@@ -35,13 +35,13 @@ func (o YoungerThanSpecification[T]) IsSatisfiedBy(u User) bool {
 
 func NewYoungerThanSpecification(age uint) YoungerThanSpecification[User] {
 	spec := YoungerThanSpecification[User]{age: age}
-	spec.value = NewCompositeSpecification[User](spec)
+	spec.Value = NewCompositeSpecification[User](spec)
 	return spec
 }
 
 func NewOlderThanSpecification(age uint) OlderThanSpecification[User] {
 	spec := OlderThanSpecification[User]{age: age}
-	spec.value = NewCompositeSpecification[User](spec)
+	spec.Value = NewCompositeSpecification[User](spec)
 	return spec
 }
 
@@ -56,7 +56,7 @@ func (o ExpectSexSpecification[T]) IsSatisfiedBy(u User) bool {
 
 func NewExpectSexSpecification(isMale bool) ExpectSexSpecification[User] {
 	spec := ExpectSexSpecification[User]{expectMale: isMale}
-	spec.value = NewCompositeSpecification[User](spec)
+	spec.Value = NewCompositeSpecification[User](spec)
 	return spec
 }
 
