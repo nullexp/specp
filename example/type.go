@@ -123,3 +123,27 @@ func YoungerThan(age int) YoungerThanSpec[ApplicationRequest] {
 	spec.Value = specp.NewCompositeSpecification[ApplicationRequest](spec)
 	return spec
 }
+
+func NameNotEmpty(firstname, lastname string) NameNotEmptySpec[ApplicationRequest] {
+	spec := NameNotEmptySpec[ApplicationRequest]{firstname: firstname, lastname: lastname}
+	spec.Value = specp.NewCompositeSpecification[ApplicationRequest](spec)
+	return spec
+}
+
+func ApplyTimeOlderThan(duration time.Duration) ApplyTimeOlderThanSpec[ApplicationRequest] {
+	spec := ApplyTimeOlderThanSpec[ApplicationRequest]{duration: duration}
+	spec.Value = specp.NewCompositeSpecification[ApplicationRequest](spec)
+	return spec
+}
+
+func AllSkillExist(wantedSkills []Skill) AllSkillExistSpec[ApplicationRequest] {
+	spec := AllSkillExistSpec[ApplicationRequest]{wantedSkills: wantedSkills}
+	spec.Value = specp.NewCompositeSpecification[ApplicationRequest](spec)
+	return spec
+}
+
+func HasMoreRelevantExperienceThan(relevantExperience int) HasMoreRelevantExperienceThanSpec[ApplicationRequest] {
+	spec := HasMoreRelevantExperienceThanSpec[ApplicationRequest]{relevantExperience: relevantExperience}
+	spec.Value = specp.NewCompositeSpecification[ApplicationRequest](spec)
+	return spec
+}
