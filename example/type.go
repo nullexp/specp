@@ -117,3 +117,9 @@ func OlderThan(age int) OlderThanSpec[ApplicationRequest] {
 	spec.Value = specp.NewCompositeSpecification[ApplicationRequest](spec)
 	return spec
 }
+
+func YoungerThan(age int) YoungerThanSpec[ApplicationRequest] {
+	spec := YoungerThanSpec[ApplicationRequest]{age: age}
+	spec.Value = specp.NewCompositeSpecification[ApplicationRequest](spec)
+	return spec
+}
