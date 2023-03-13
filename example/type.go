@@ -136,7 +136,7 @@ func ApplyTimeOlderThan(duration time.Duration) ApplyTimeOlderThanSpec[Applicati
 	return spec
 }
 
-func AllSkillExist(wantedSkills []Skill) AllSkillExistSpec[ApplicationRequest] {
+func AllSkillExist(wantedSkills ...Skill) AllSkillExistSpec[ApplicationRequest] {
 	spec := AllSkillExistSpec[ApplicationRequest]{wantedSkills: wantedSkills}
 	spec.Value = specp.NewCompositeSpecification[ApplicationRequest](spec)
 	return spec
