@@ -84,7 +84,7 @@ func TestAccpetedForIntreview(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if gotAccepted := AccpetedForIntreview(tt.application()); gotAccepted != tt.wantAccepted {
+			if gotAccepted := IsAccpeted(tt.application()); gotAccepted != tt.wantAccepted {
 				t.Errorf("AccpetedForIntreview() = %v, want %v", gotAccepted, tt.wantAccepted)
 			}
 		})

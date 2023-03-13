@@ -4,8 +4,8 @@ import (
 	"time"
 )
 
-// AccpetedForIntreview Without Specification
-func AccpetedForIntreview(application ApplicationRequest) (accepted bool) {
+// IsAccpeted (for interview) Without Specification
+func IsAccpeted(application ApplicationRequest) (accepted bool) {
 
 	// Applicant age must be more and equal than 18 and less than 30
 	if application.Age < 18 || application.Age > 30 {
