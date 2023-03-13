@@ -109,7 +109,7 @@ func (as AllSkillExistSpec[T]) IsSatisfiedBy(ar ApplicationRequest) bool {
 }
 
 func (hm HasMoreRelevantExperienceThanSpec[T]) IsSatisfiedBy(ar ApplicationRequest) bool {
-	return ar.RelevantExperience >= ar.RelevantExperience
+	return hm.relevantExperience >= ar.RelevantExperience
 }
 
 func OlderThan(age int) OlderThanSpec[ApplicationRequest] {
