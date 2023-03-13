@@ -82,7 +82,7 @@ var getTestCases = []struct {
 	},
 }
 
-func TestAccpetedForIntreview(t *testing.T) {
+func TestIsAccpeted(t *testing.T) {
 
 	for _, tt := range getTestCases {
 		t.Run(tt.name, func(t *testing.T) {
