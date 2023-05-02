@@ -60,8 +60,28 @@ func NewExpectSexSpecification(isMale bool) ExpectSexSpecification[User] {
 	return spec
 }
 
-func TestAndSpecification(t *testing.T) {
+func TestBasicRun(t *testing.T) {
+	user := User{Age: 30, IsMale: true}
+	olderSpec := NewOlderThanSpecification(20)
+	youngerSpec := NewYoungerThanSpecification(40)
+	alotOlderSpec := NewOlderThanSpecification(50)
 
+	rs := olderSpec.IsSatisfiedBy(user)
+	assert.True(t, rs)
+
+	rs = youngerSpec.IsSatisfiedBy(user)
+	assert.True(t, rs)
+
+	combined := olderSpec.And(youngerSpec)
+	rs = combined.IsSatisfiedBy(user)
+	assert.True(t, rs)
+
+	moreCombined := combined.And(alotOlderSpec)
+	rs = moreCombined.IsSatisfiedBy(user)
+	assert.False(t, rs)
+}
+
+func TestAndSpecification(t *testing.T) {
 	user := User{Age: 20, IsMale: true}
 
 	type test = struct {
@@ -104,11 +124,9 @@ func TestAndSpecification(t *testing.T) {
 			assert.Equal(t, v.expectedResult, result)
 		})
 	}
-
 }
 
 func TestAndNotSpecification(t *testing.T) {
-
 	user := User{Age: 20, IsMale: true}
 
 	type test = struct {
@@ -151,11 +169,9 @@ func TestAndNotSpecification(t *testing.T) {
 			assert.Equal(t, v.expectedResult, result)
 		})
 	}
-
 }
 
 func TestOrSpecification(t *testing.T) {
-
 	user := User{Age: 20, IsMale: true}
 
 	type test = struct {
@@ -198,11 +214,9 @@ func TestOrSpecification(t *testing.T) {
 			assert.Equal(t, v.expectedResult, result)
 		})
 	}
-
 }
 
 func TestOrNotSpecification(t *testing.T) {
-
 	user := User{Age: 20, IsMale: true}
 
 	type test = struct {
@@ -245,11 +259,9 @@ func TestOrNotSpecification(t *testing.T) {
 			assert.Equal(t, v.expectedResult, result)
 		})
 	}
-
 }
 
 func TestNotSpecification(t *testing.T) {
-
 	user := User{Age: 20, IsMale: true}
 
 	type test = struct {
@@ -292,5 +304,4 @@ func TestNotSpecification(t *testing.T) {
 			assert.Equal(t, v.expectedResult, result)
 		})
 	}
-
 }

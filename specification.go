@@ -20,16 +20,17 @@ type CompositeSpecification[T any] struct {
 func NewCompositeSpecification[T any](satisfier Satisfier[T]) CompositeSpecification[T] {
 	return CompositeSpecification[T]{Value: satisfier}
 }
+
 func (c CompositeSpecification[T]) IsSatisfiedBy(value T) bool {
 	return c.Value.IsSatisfiedBy(value)
 }
 
 func (c CompositeSpecification[T]) And(other Specification[T]) Specification[T] {
-	return NewAndSpecification[T](c, other)
+	return NewAndSpecificiation[T](c, other)
 }
 
 func (c CompositeSpecification[T]) AndNot(other Specification[T]) Specification[T] {
-	return NewAndNotSpecification[T](c, other)
+	return NewAndNotSpecificiation[T](c, other)
 }
 
 func (c CompositeSpecification[T]) Not() Specification[T] {
@@ -42,69 +43,4 @@ func (c CompositeSpecification[T]) OrNot(other Specification[T]) Specification[T
 
 func (c CompositeSpecification[T]) Or(other Specification[T]) Specification[T] {
 	return NewOrSpecification[T](c, other)
-}
-
-// AndSpecification
-type AndSpecficiation[T any] struct {
-	CompositeSpecification[T]
-	leftCondition  Specification[T]
-	rightCondition Specification[T]
-}
-
-func (and AndSpecficiation[T]) IsSatisfiedBy(value T) bool {
-	return and.leftCondition.IsSatisfiedBy(value) && and.rightCondition.IsSatisfiedBy(value)
-}
-func NewAndSpecification[T any](left, right Specification[T]) AndSpecficiation[T] {
-	return AndSpecficiation[T]{leftCondition: left, rightCondition: right}
-}
-
-type AndNotSpecficiation[T any] struct {
-	CompositeSpecification[T]
-	leftCondition  Specification[T]
-	rightCondition Specification[T]
-}
-
-func (andn AndNotSpecficiation[T]) IsSatisfiedBy(value T) bool {
-	return !(andn.leftCondition.IsSatisfiedBy(value) && andn.rightCondition.IsSatisfiedBy(value))
-}
-func NewAndNotSpecification[T any](left, right Specification[T]) AndNotSpecficiation[T] {
-	return AndNotSpecficiation[T]{leftCondition: left, rightCondition: right}
-}
-
-type NotSpecficiation[T any] struct {
-	CompositeSpecification[T]
-	condition Specification[T]
-}
-
-func (ns NotSpecficiation[T]) IsSatisfiedBy(value T) bool {
-	return !(ns.condition.IsSatisfiedBy(value))
-}
-func NewNotSpecification[T any](condition Specification[T]) NotSpecficiation[T] {
-	return NotSpecficiation[T]{condition: condition, CompositeSpecification: CompositeSpecification[T]{Value: condition}}
-}
-
-type OrNotSpecficiation[T any] struct {
-	CompositeSpecification[T]
-	leftCondition  Specification[T]
-	rightCondition Specification[T]
-}
-
-func (on OrNotSpecficiation[T]) IsSatisfiedBy(value T) bool {
-	return !(on.leftCondition.IsSatisfiedBy(value) || on.rightCondition.IsSatisfiedBy(value))
-}
-func NewOrNotSpecification[T any](left, right Specification[T]) OrNotSpecficiation[T] {
-	return OrNotSpecficiation[T]{leftCondition: left, rightCondition: right}
-}
-
-type OrSpecficiation[T any] struct {
-	CompositeSpecification[T]
-	leftCondition  Specification[T]
-	rightCondition Specification[T]
-}
-
-func (o OrSpecficiation[T]) IsSatisfiedBy(value T) bool {
-	return o.leftCondition.IsSatisfiedBy(value) || o.rightCondition.IsSatisfiedBy(value)
-}
-func NewOrSpecification[T any](left, right Specification[T]) OrSpecficiation[T] {
-	return OrSpecficiation[T]{leftCondition: left, rightCondition: right}
 }
