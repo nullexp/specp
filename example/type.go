@@ -52,7 +52,7 @@ type (
 
 const (
 	Golang Skill = "Golang"
-	Csharp Skill = "CSharp"
+	Csharp Skill = "C#"
 	Java   Skill = "Java"
 	Rust   Skill = "Rust"
 	Docker Skill = "Docker"
@@ -63,18 +63,6 @@ const (
 func isEmpty(value string) bool {
 	return strings.Trim(value, " ") == ""
 }
-
-var (
-	now                            = time.Now()
-	validSample ApplicationRequest = ApplicationRequest{
-		Firstname:          "Sam",
-		Lastname:           "Smith",
-		ApplyTime:          now,
-		Age:                18,
-		RelevantExperience: 4,
-		Skills:             []Skill{Docker, Golang},
-	}
-)
 
 func (o OlderThanSpec[T]) IsSatisfiedBy(ar ApplicationRequest) bool {
 	return ar.Age > o.age
@@ -112,16 +100,16 @@ func (hm HasMoreRelevantExperienceThanSpec[T]) IsSatisfiedBy(ar ApplicationReque
 	return hm.relevantExperience >= ar.RelevantExperience
 }
 
-func OlderThan(age int) OlderThanSpec[ApplicationRequest] {
+func OlderThan(age int) *OlderThanSpec[ApplicationRequest] {
 	spec := OlderThanSpec[ApplicationRequest]{age: age}
 	spec.Value = specp.NewCompositeSpecification[ApplicationRequest](spec)
-	return spec
+	return &spec
 }
 
-func YoungerThan(age int) YoungerThanSpec[ApplicationRequest] {
+func YoungerThan(age int) *YoungerThanSpec[ApplicationRequest] {
 	spec := YoungerThanSpec[ApplicationRequest]{age: age}
 	spec.Value = specp.NewCompositeSpecification[ApplicationRequest](spec)
-	return spec
+	return &spec
 }
 
 func NameNotEmpty(firstname, lastname string) NameNotEmptySpec[ApplicationRequest] {

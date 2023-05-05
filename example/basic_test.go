@@ -2,8 +2,20 @@ package example
 
 import (
 	"testing"
+	"time"
 )
 
+var (
+	now                            = time.Now()
+	validSample ApplicationRequest = ApplicationRequest{
+		Firstname:          "Sam",
+		Lastname:           "Smith",
+		ApplyTime:          now,
+		Age:                18,
+		RelevantExperience: 4,
+		Skills:             []Skill{Docker, Golang},
+	}
+)
 var getTestCases = []struct {
 	name         string
 	application  func() ApplicationRequest
@@ -87,6 +99,17 @@ func TestIsAccpeted(t *testing.T) {
 	for _, tt := range getTestCases {
 		t.Run(tt.name, func(t *testing.T) {
 			if gotAccepted := IsAccpeted(tt.application()); gotAccepted != tt.wantAccepted {
+				t.Errorf("AccpetedForIntreview() = %v, want %v", gotAccepted, tt.wantAccepted)
+			}
+		})
+	}
+}
+
+func TestIsAccpetedWithSpec(t *testing.T) {
+
+	for _, tt := range getTestCases {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotAccepted := IsAccpetedWithSpec(tt.application()); gotAccepted != tt.wantAccepted {
 				t.Errorf("AccpetedForIntreview() = %v, want %v", gotAccepted, tt.wantAccepted)
 			}
 		})
