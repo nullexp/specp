@@ -77,7 +77,7 @@ func (n NameNotEmptySpec[T]) IsSatisfiedBy(ar ApplicationRequest) bool {
 }
 
 func (at ApplyTimeOlderThanSpec[T]) IsSatisfiedBy(ar ApplicationRequest) bool {
-	return time.Until(ar.ApplyTime) > at.duration
+	return time.Until(ar.ApplyTime) < at.duration
 }
 
 func (as AllSkillExistSpec[T]) IsSatisfiedBy(ar ApplicationRequest) bool {
@@ -97,7 +97,7 @@ func (as AllSkillExistSpec[T]) IsSatisfiedBy(ar ApplicationRequest) bool {
 }
 
 func (hm HasMoreRelevantExperienceThanSpec[T]) IsSatisfiedBy(ar ApplicationRequest) bool {
-	return hm.relevantExperience >= ar.RelevantExperience
+	return hm.relevantExperience < ar.RelevantExperience
 }
 
 func OlderThan(age int) *OlderThanSpec[ApplicationRequest] {

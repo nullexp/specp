@@ -49,7 +49,6 @@ func IsAccpetedWithSpec(application ApplicationRequest) (accepted bool) {
 		And(NameNotEmpty(application.Firstname, application.Lastname)).
 		And(ApplyTimeOlderThan(Week)).
 		And(AllSkillExist(Golang, Docker)).
-		And(HasMoreRelevantExperienceThan(3)).
-		IsSatisfiedBy(application)
+		And(HasMoreRelevantExperienceThan(3)).IsSatisfiedBy(application)
 
 }
